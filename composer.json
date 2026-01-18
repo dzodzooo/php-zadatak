@@ -1,0 +1,10 @@
+{
+  "name": "jovana/zadatak",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  },
+  "require": {}
+}

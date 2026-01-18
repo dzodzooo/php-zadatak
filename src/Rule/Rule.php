@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+namespace Rule;
+abstract class Rule
+{
+    protected string $errorMessage;
+    public function __construct()
+    {
+        $this->errorMessage = "";
+    }
+    abstract public function validate(string $input): bool;
+    public function getMessage(): string
+    {
+        return $this->errorMessage;
+    }
+}
