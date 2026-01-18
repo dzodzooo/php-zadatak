@@ -9,6 +9,7 @@ class SameRule extends Rule
     private array $arg;
     public function __construct(array $args)
     {
+        parent::__construct();
         $this->arg = [];
         if (!isset($args))
             throw new ValidationException('Invalid arguments.');

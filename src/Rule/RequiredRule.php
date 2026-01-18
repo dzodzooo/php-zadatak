@@ -3,6 +3,10 @@ declare(strict_types=1);
 namespace Rule;
 class RequiredRule extends Rule
 {
+    public function __construct(array $args)
+    {
+        parent::__construct();
+    }
     public function validate(string $input): bool
     {
         if (isset($input) && strlen($input) > 0) {

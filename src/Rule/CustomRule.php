@@ -10,6 +10,7 @@ class CustomRule extends Rule
     private $callback;
     public function __construct(callable $callback)
     {
+        parent::__construct();
         if (!is_callable($callback)) {
             throw new ValidationException("");
         }
