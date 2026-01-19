@@ -15,6 +15,8 @@ class RuleFactory
                 return new MinRule($args);
             case 'same':
                 return new SameRule($args);
+            case 'unique email':
+                return new UniqueEmailRule();
 
             default:
                 return new CustomRule($callback);

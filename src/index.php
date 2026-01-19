@@ -4,7 +4,6 @@ use Database\UserRepository;
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use DataObject\UserData;
-use DataObject\UserLog;
 use Exception\DatabaseException;
 use Exception\ValidationException;
 use Validation\UserDataValidatorFactory;
@@ -12,7 +11,7 @@ use Validation\UserDataValidatorFactory;
 $auth = new AuthService();
 $auth->register();
 try {
-    $userData = new UserData('user89ikjdddgffdsdd@gmail.com', 'password', 'password');
+    $userData = new UserData('user8@gmail.com', 'password', 'password');
     $validator = UserDataValidatorFactory::create($userData);
     if (!$validator->validate()) {
         $errors = $validator->getErrorMessages();
@@ -33,7 +32,7 @@ try {
     $result = $userRepository->logAction(new UserLog($userId, UserAction::Register));
     echo $result;*/
 } catch (ValidationException $exception) {
-    echo $exception->getMessage();
+    echo "{$exception->getMessage()}\n";
 
 } catch (DatabaseException $exception) {
     echo $exception->getMessage();

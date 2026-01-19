@@ -12,6 +12,7 @@ class UserDataValidatorFactory
         $validator->validateOn((array) $userData);
 
         $validator->addRule('email', 'required');
+        $validator->addRule('email', 'unique email');
         //$validator->addRule('email', 'email');
 
         $validator->addRule('password', 'required');

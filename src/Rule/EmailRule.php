@@ -4,7 +4,7 @@ namespace Rule;
 use Exception;
 class EmailRule extends Rule
 {
-    public function __construct(array $args)
+    public function __construct()
     {
         parent::__construct();
     }
