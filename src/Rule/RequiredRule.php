@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace Rule;
 class RequiredRule extends Rule
 {
-    public function __construct(array $args)
+    public function __construct()
     {
         parent::__construct();
     }

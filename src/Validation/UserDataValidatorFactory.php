@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Validation;
 
-use UserData;
+use \DataObject\UserData;
 
 class UserDataValidatorFactory
 {
