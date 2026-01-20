@@ -1,44 +1,24 @@
 <?php
 declare(strict_types=1);
-use Database\UserRepository;
+
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use DataObject\UserData;
 use Exception\DatabaseException;
 use Exception\ValidationException;
-use Validation\UserDataValidatorFactory;
+use Service\AuthService;
 
-$auth = new AuthService();
-$auth->register();
+
 try {
-    $userData = new UserData('user8@gmail.com', 'password', 'password');
-    $validator = UserDataValidatorFactory::create($userData);
-    if (!$validator->validate()) {
-        $errors = $validator->getErrorMessages();
-        throw new ValidationException(array_pop($errors)[0]);
-    }
-    $userRepository = new UserRepository();
-    $userRepository->connect(username: 'my_user', password: 'my_password');
-    $result = $userRepository->selectUsers('posted > NOW() - INTERVAL 10 DAY');
+    $_SERVER['REMOTE_ADDR'] = "152.216.7.110";
+    $_SERVER['HTTP_USER_AGENT'] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36";
 
-    var_dump($result);
-    /*if (is_array($result)) {
-        throw new ValidationException('User already exists');
-    }
-
-    $userId = $userRepository->insertUser($userData);
-    var_dump($userId);
-
-    $result = $userRepository->logAction(new UserLog($userId, UserAction::Register));
-    echo $result;*/
-} catch (ValidationException $exception) {
+    $auth = new AuthService();
+    $userId = $auth->register(new UserData('kiki@bubu.com', 'lozinka', 'lozinka'));
+    echo json_encode([
+        'success' => true,
+        'userId' => $userId
+    ]);
+} catch (ValidationException | DatabaseException $exception) {
     echo "{$exception->getMessage()}\n";
-
-} catch (DatabaseException $exception) {
-    echo $exception->getMessage();
 }
-
-
-
-
-exit;

@@ -38,11 +38,6 @@ class Validator
         array_push($this->rules[$key], $rule);
     }
 
-    public function addCustomRule(string $rule, ?array $args = null)
-    {
-
-    }
-
     public function validate(): bool
     {
         $validated = true;

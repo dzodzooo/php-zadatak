@@ -2,9 +2,11 @@
 declare(strict_types=1);
 namespace Rule;
 
+use Exception\ValidationException;
+
 class RuleFactory
 {
-    public static function create(string $rule, ?array $args = null, ?callable $callback = null): Rule
+    public static function create(string $rule, ?array $args = null): Rule
     {
         switch ($rule) {
             case 'email':
@@ -17,9 +19,11 @@ class RuleFactory
                 return new SameRule($args);
             case 'unique email':
                 return new UniqueEmailRule();
+            case 'minfraud':
+                return new MinfraudRule($args);
 
             default:
-                return new CustomRule($callback);
+                throw new ValidationException("Unimplemented rule $rule");
 
         }
     }
