@@ -2,26 +2,24 @@
 declare(strict_types=1);
 namespace Service;
 
-use Database\UserRepository;
+use Contract\EmailServiceInterface;
+use Contract\SessionInterface;
+use Contract\UserRepositoryInterface;
 use DataObject\UserData;
 use DataObject\UserLog;
 use Exception\DatabaseException;
 use Exception\ValidationException;
-use Service\Session;
 use UserAction;
 use Validation\UserDataValidatorFactory;
-use Validation\Validator;
 
 class AuthService
 {
-    private UserRepository $userRepository;
-    private Session $session;
-    public function __construct()
-    {
-        $this->session = new Session();
-        $this->userRepository = new UserRepository();
+    public function __construct(
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly SessionInterface $session,
+        private readonly EmailServiceInterface $mailer
+    ) {
         $this->userRepository->connect(username: 'my_user', password: 'my_password');
-
     }
     public function register(UserData $userData)
     {
@@ -44,6 +42,9 @@ class AuthService
 
         $this->session->regenerateId();
         $this->session->set('userId', $userId);
+
+        $this->mailer->sendWelcomeMessage($userData->email);
+
         return $userId;
     }
 }

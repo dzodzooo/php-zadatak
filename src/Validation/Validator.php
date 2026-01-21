@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Validation;
 
 use Exception\ValidationException;
-use Rule\Rule;
-use Rule\RuleFactory;
+use Validation\Rule\Rule;
+use Validation\Rule\RuleFactory;
 
 class Validator
 {

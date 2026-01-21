@@ -2,9 +2,10 @@
 declare(strict_types=1);
 namespace Service;
 
+use Contract\SessionInterface;
 use DateTime;
 
-class Session
+class Session implements SessionInterface
 {
     public function start()
     {
