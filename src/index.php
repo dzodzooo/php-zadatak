@@ -21,7 +21,7 @@ try {
         new Session(),
         new EmailService()
     );
-    $userId = $auth->register(new UserData('stojanovicjovana312@gmail.com', 'lozinka', 'lozinka'));
+    $userId = $auth->register(new UserData('stogdjovana312@gmafl.com', 'lozinka', 'lozinka'));
     echo json_encode([
         'success' => true,
         'userId' => $userId
