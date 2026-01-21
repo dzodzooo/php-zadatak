@@ -6,7 +6,7 @@ class InsertQuery extends Query
 {
     public function insert(string $table)
     {
-        $table = $this->link->escape_string($table);
+        $table = $this->db->escape($table);
         $this->query = "INSERT INTO $table";
         return $this;
     }
@@ -15,7 +15,7 @@ class InsertQuery extends Query
         if (!str_contains($this->query, "INSERT"))
             throw new databaseexception("INSERT query must contain INSERT keyword");
 
-        $escaped_columns = array_map(fn($column) => $this->link->escape_string($column), $columns);
+        $escaped_columns = array_map(fn($column) => $this->db->escape($column), $columns);
         $arg = implode(", ", array_map(fn($column) => "$column = ?", $escaped_columns));
         $this->query = "$this->query SET $arg";
 
@@ -31,7 +31,7 @@ class InsertQuery extends Query
     {
         if (!str_contains($this->query, "SET"))
             throw new databaseexception("INSERT query must contain SET keyword");
-        $escaped = $this->link->escape_string($column);
+        $escaped = $this->db->escape($column);
         $this->query = "$this->query, $escaped=NOW()";
         return $this;
     }
@@ -39,6 +39,6 @@ class InsertQuery extends Query
     {
         parent::execute($args);
 
-        return $this->link->insert_id;
+        return $this->db->getInsertId();
     }
 }

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Database;
 
+use Contract\DatabaseInterface;
 use Database\Query\InsertQuery;
 use Exception\DatabaseException;
 use Database\Query\SelectQuery;
@@ -9,12 +10,12 @@ use mysqli;
 
 class QueryBuilder
 {
-    public function __construct(private mysqli $link)
+    public function __construct(private DatabaseInterface $db)
     {
     }
     public function select(string $table, ?array $columns = null)
     {
-        $query = (new SelectQuery($this->link))
+        $query = (new SelectQuery($this->db))
             ->select($columns)
             ->from($table);
 
@@ -22,7 +23,7 @@ class QueryBuilder
     }
     public function insert(string $table)
     {
-        $query = (new InsertQuery($this->link))
+        $query = (new InsertQuery($this->db))
             ->insert($table);
 
         return $query;

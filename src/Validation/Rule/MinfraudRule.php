@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Rule;
+namespace Validation\Rule;
 
 use Exception\ValidationException;
 use Service\MinFraudMock;
@@ -34,7 +34,7 @@ class MinfraudRule extends Rule
         if ($this->minFraud->score()->riskScore < 0)
             return true;
 
-        $this->errorMessage = "MaxMind validation failed";
+        $this->errorMessage = "MinFraud validation failed";
         return false;
     }
 }

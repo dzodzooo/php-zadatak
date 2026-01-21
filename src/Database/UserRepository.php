@@ -2,22 +2,24 @@
 declare(strict_types=1);
 namespace Database;
 
+use Contract\DatabaseInterface;
+use Contract\UserRepositoryInterface;
 use Exception\DatabaseException;
 use mysqli;
 use DataObject\UserData;
 use DataObject\UserLog;
 
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
-    private mysqli $mysqli;
     private QueryBuilder $queryBuilder;
+    public function __construct(
+        private readonly DatabaseInterface $db,
+    ) {
+    }
     public function connect(string $username, string $password, string $hostname = "localhost")
     {
-        $this->mysqli = new mysqli($hostname, $username, $password, 'my_db', 3306);
-        if (!$this->mysqli or $this->mysqli->connect_errno) {
-            throw new DatabaseException("Error connecting to the database.");
-        }
-        $this->queryBuilder = new QueryBuilder($this->mysqli);
+        $this->db->connect($username, $password, $hostname);
+        $this->queryBuilder = new QueryBuilder($this->db);
     }
     public function selectUser(string $email)
     {
@@ -55,12 +57,6 @@ class UserRepository
             ->bindParams([$userLog->userId, $userLog->action->value])
             ->execute();
 
-
-        /*mysqli_query(
-            $this->mysqli,
-            "INSERT INTO user_log SET `action` = 'register', user_id = $userLog->userId, log_time = NOW()"
-        );
-*/
         return $insert_id;
     }
 

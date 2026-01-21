@@ -11,7 +11,7 @@ class SelectQuery extends Query
             $this->query = "SELECT *";
             return $this;
         }
-        $columns = array_map(fn($column) => $this->link->escape_string($column), $columns);
+        $columns = array_map(fn($column) => $this->db->escape($column), $columns);
         $args = implode(', ', $columns);
         $this->query = "SELECT ({$args})";
         return $this;
@@ -20,7 +20,8 @@ class SelectQuery extends Query
     {
         if (!str_contains($this->query, "SELECT"))
             throw new DatabaseException("SELECT query must contain SELECT keyword");
-        $table = $this->link->escape_string($table);
+
+        $table = $this->db->escape($table);
         $this->query = "{$this->query} FROM {$table}";
         return $this;
     }
@@ -35,7 +36,7 @@ class SelectQuery extends Query
             return $this;
         }
 
-        $column = $this->link->escape_string($column);
+        $column = $this->db->escape($column);
         $this->query = "{$this->query} WHERE {$column}=?";
         return $this;
     }
@@ -44,7 +45,7 @@ class SelectQuery extends Query
         if (!str_contains($this->query, "WHERE"))
             throw new DatabaseException("SELECT query must contain WHERE keyword");
 
-        $column = $this->link->escape_string($column);
+        $column = $this->db->escape($column);
         $this->query = "{$this->query} AND {$column}=?";
         return $this;
     }
@@ -53,7 +54,7 @@ class SelectQuery extends Query
         if (!str_contains($this->query, "WHERE"))
             throw new DatabaseException("SELECT query must contain WHERE keyword");
 
-        $column = $this->link->escape_string($column);
+        $column = $this->db->escape($column);
         $this->query = "{$this->query} OR {$column}=?";
         return $this;
     }
@@ -62,7 +63,7 @@ class SelectQuery extends Query
         if (!str_contains($this->query, "WHERE"))
             throw new DatabaseException("SELECT query must contain WHERE keyword");
 
-        $escaped = $this->link->escape_string($condition);
+        $escaped = $this->db->escape($condition);
         $this->query = "$this->query $escaped";
         return $this;
     }
@@ -70,13 +71,6 @@ class SelectQuery extends Query
     {
         parent::execute($args);
 
-        $result = $this->statement->get_result();
-
-        if ($result === false)
-            return false;
-
-        $row = $result->fetch_assoc();
-
-        return $row;
+        return $this->db->getResult();
     }
 }

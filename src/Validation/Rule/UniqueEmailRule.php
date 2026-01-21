@@ -1,18 +1,15 @@
 <?php
 declare(strict_types=1);
-namespace Rule;
+namespace Validation\Rule;
 
+use Database\Database;
 use Database\UserRepository;
 
 class UniqueEmailRule extends Rule
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
     public function validate(string $input): bool
     {
-        $userRepository = new UserRepository();
+        $userRepository = new UserRepository(new Database());
         $userRepository->connect(username: 'my_user', password: 'my_password');
         $result = $userRepository->selectUser($input);
 
