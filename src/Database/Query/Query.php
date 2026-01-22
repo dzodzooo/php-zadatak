@@ -7,7 +7,7 @@ use Exception\DatabaseException;
 use mysqli;
 use mysqli_stmt;
 
-class Query
+abstract class Query
 {
     protected string $query;
     protected mysqli_stmt $statement;

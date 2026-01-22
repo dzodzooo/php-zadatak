@@ -9,8 +9,8 @@ trait SetTrait
     public function set(array $columns)
     {
         if (
-            !str_contains($this->query, "INSERT") ||
-            !str_contains($this->query, 'UPDATE')
+            !(str_contains($this->query, "INSERT") ||
+                str_contains($this->query, 'UPDATE'))
         )
             throw new DatabaseException("INSERT query must contain INSERT or UPDATE keyword");
 

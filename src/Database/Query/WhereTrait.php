@@ -9,8 +9,8 @@ trait WhereTrait
     public function where(?string $column = null)
     {
         if (
-            !str_contains($this->query, 'FROM') ||
-            !str_contains($this->query, 'UPDATE')
+            !(str_contains($this->query, 'FROM') ||
+                str_contains($this->query, 'UPDATE'))
         )
             throw new DatabaseException("SELECT query must contain FROM keyword. UPDATE query must contain SET keyword");
 
