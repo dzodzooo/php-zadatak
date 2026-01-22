@@ -17,7 +17,6 @@ class Query
         $this->query = "";
     }
 
-
     public function prepare()
     {
         $this->db->prepareStatement($this->query);

@@ -4,6 +4,7 @@ namespace Database;
 
 use Contract\DatabaseInterface;
 use Database\Query\InsertQuery;
+use Database\Query\UpdateQuery;
 use Exception\DatabaseException;
 use Database\Query\SelectQuery;
 use mysqli;
@@ -25,6 +26,14 @@ class QueryBuilder
     {
         $query = (new InsertQuery($this->db))
             ->insert($table);
+
+        return $query;
+    }
+
+    public function update(string $table)
+    {
+        $query = (new UpdateQuery($this->db))
+            ->update($table);
 
         return $query;
     }

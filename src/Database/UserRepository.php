@@ -39,7 +39,7 @@ class UserRepository implements UserRepositoryInterface
         $insert_id = $this->queryBuilder
             ->insert('user')
             ->set(['email', 'password'])
-            ->touch('posted')
+            ->touch('posted', 'NOW()')
             ->prepare()
             ->bindParams([$userData->email, $password])
             ->execute();
@@ -51,8 +51,8 @@ class UserRepository implements UserRepositoryInterface
         $insert_id = $this->queryBuilder
             ->insert('user_log')
             ->set(['user_id', 'action'])
-            ->touch('log_time')
-            ->touch('posted')
+            ->touch('log_time', 'NOW()')
+            ->touch('posted', 'NOW()')
             ->prepare()
             ->bindParams([$userLog->userId, $userLog->action->value])
             ->execute();

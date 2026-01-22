@@ -5,6 +5,7 @@ namespace Database\Query;
 use Exception\DatabaseException;
 class SelectQuery extends Query
 {
+    use WhereTrait;
     public function select(?array $columns = null)
     {
         if (!isset($columns)) {
@@ -26,47 +27,6 @@ class SelectQuery extends Query
         return $this;
     }
 
-    public function where(?string $column = null)
-    {
-        if (!str_contains($this->query, "FROM"))
-            throw new DatabaseException("SELECT query must contain FROM keyword");
-
-        if ($column === null) {
-            $this->query = "{$this->query} WHERE";
-            return $this;
-        }
-
-        $column = $this->db->escape($column);
-        $this->query = "{$this->query} WHERE {$column}=?";
-        return $this;
-    }
-    public function and(string $column)
-    {
-        if (!str_contains($this->query, "WHERE"))
-            throw new DatabaseException("SELECT query must contain WHERE keyword");
-
-        $column = $this->db->escape($column);
-        $this->query = "{$this->query} AND {$column}=?";
-        return $this;
-    }
-    public function or(string $column)
-    {
-        if (!str_contains($this->query, "WHERE"))
-            throw new DatabaseException("SELECT query must contain WHERE keyword");
-
-        $column = $this->db->escape($column);
-        $this->query = "{$this->query} OR {$column}=?";
-        return $this;
-    }
-    public function setCondition(string $condition)
-    {
-        if (!str_contains($this->query, "WHERE"))
-            throw new DatabaseException("SELECT query must contain WHERE keyword");
-
-        $escaped = $this->db->escape($condition);
-        $this->query = "$this->query $escaped";
-        return $this;
-    }
     public function execute(?array $args = null)
     {
         parent::execute($args);
