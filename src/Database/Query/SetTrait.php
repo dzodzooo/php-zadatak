@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Database\Query;
+namespace App\Database\Query;
 
-use Exception\DatabaseException;
+use App\Exception\DatabaseException;
 
 trait SetTrait
 {
@@ -20,12 +20,7 @@ trait SetTrait
 
         return $this;
     }
-    /**
-     * Summary of touch
-     * @param string $column sets column to NOW()
-     * @throws \Exception\DatabaseException
-     * @return static
-     */
+
     public function touch(string $column, ?string $value = null)
     {
         if (!str_contains($this->query, "SET"))

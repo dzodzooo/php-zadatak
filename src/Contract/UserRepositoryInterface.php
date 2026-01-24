@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace Contract;
+namespace App\Contract;
 
-use DataObject\UserData;
-use DataObject\UserLog;
+use App\DataObject\UserData;
+use App\DataObject\UserLog;
 
 interface UserRepositoryInterface
 {

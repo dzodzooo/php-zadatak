@@ -1,13 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace Database;
+namespace App\Database;
 
-use Contract\DatabaseInterface;
-use Contract\UserRepositoryInterface;
-use Exception\DatabaseException;
-use mysqli;
-use DataObject\UserData;
-use DataObject\UserLog;
+use App\Contract\DatabaseInterface;
+use App\Contract\UserRepositoryInterface;
+use App\DataObject\UserData;
+use App\DataObject\UserLog;
 
 class UserRepository implements UserRepositoryInterface
 {

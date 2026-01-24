@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Validation\Rule;
+namespace App\Validation\Rule;
 
-use Exception\ValidationException;
+use App\Exception\ValidationException;
 
 class SameRule extends Rule
 {

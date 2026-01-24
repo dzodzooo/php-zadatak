@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Validation\Rule;
+namespace App\Validation\Rule;
 class RequiredRule extends Rule
 {
     public function __construct()

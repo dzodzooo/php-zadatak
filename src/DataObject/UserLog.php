@@ -1,9 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace DataObject;
+namespace App\DataObject;
 
-use DateTime;
-use UserAction;
+use App\UserAction;
 
 class UserLog
 {

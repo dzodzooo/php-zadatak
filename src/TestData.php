@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-
-use DataObject\UserData;
+namespace App;
+use App\DataObject\UserData;
 
 class TestData
 {

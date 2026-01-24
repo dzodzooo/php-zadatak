@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Database\Query;
+namespace App\Database\Query;
 
-use Contract\DatabaseInterface;
-use Exception\DatabaseException;
-use mysqli;
+use App\Contract\DatabaseInterface;
 use mysqli_stmt;
 
 abstract class Query

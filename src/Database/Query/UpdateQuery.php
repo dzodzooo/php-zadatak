@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Database\Query;
+namespace App\Database\Query;
 
 class UpdateQuery extends Query
 {

@@ -1,13 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace Database;
+namespace App\Database;
 
-use Contract\DatabaseInterface;
-use Database\Query\InsertQuery;
-use Database\Query\UpdateQuery;
-use Exception\DatabaseException;
-use Database\Query\SelectQuery;
-use mysqli;
+use App\Contract\DatabaseInterface;
+use App\Database\Query\InsertQuery;
+use App\Database\Query\UpdateQuery;
+use App\Database\Query\SelectQuery;
 
 class QueryBuilder
 {

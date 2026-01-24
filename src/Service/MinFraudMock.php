@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Service;
+namespace App\Service;
 
-use DataObject\ScoreMock;
+use App\DataObject\ScoreMock;
 use DateTime;
 
 class MinFraudMock

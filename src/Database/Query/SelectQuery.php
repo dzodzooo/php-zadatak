@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Database\Query;
+namespace App\Database\Query;
 
-use Exception\DatabaseException;
+use App\Exception\DatabaseException;
 class SelectQuery extends Query
 {
     use WhereTrait;

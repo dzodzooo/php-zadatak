@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Validation\Rule;
+namespace App\Validation\Rule;
 abstract class Rule
 {
     protected string $errorMessage;

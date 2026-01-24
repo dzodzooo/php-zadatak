@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Validation\Rule;
-use Exception;
+namespace App\Validation\Rule;
 class EmailRule extends Rule
 {
     public function __construct()

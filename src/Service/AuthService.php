@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
-namespace Service;
+namespace App\Service;
 
-use Contract\EmailServiceInterface;
-use Contract\SessionInterface;
-use Contract\UserRepositoryInterface;
-use DataObject\UserData;
-use DataObject\UserLog;
-use Exception\DatabaseException;
-use Exception\ValidationException;
-use UserAction;
-use Validation\UserDataValidatorFactory;
+use App\Contract\EmailServiceInterface;
+use App\Contract\SessionInterface;
+use App\Contract\UserRepositoryInterface;
+use App\DataObject\UserData;
+use App\DataObject\UserLog;
+use App\Exception\DatabaseException;
+use App\Exception\ValidationException;
+use App\UserAction;
+use App\Validation\UserDataValidatorFactory;
 
 class AuthService
 {

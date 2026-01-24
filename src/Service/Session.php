@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Service;
+namespace App\Service;
 
-use Contract\SessionInterface;
+use App\Contract\SessionInterface;
 use DateTime;
 
 class Session implements SessionInterface

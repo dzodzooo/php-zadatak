@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace Service;
+namespace App\Service;
 
-use Contract\EmailServiceInterface;
-use Exception\EmailException;
+use App\Contract\EmailServiceInterface;
+use App\Exception\EmailException;
 
 class EmailService implements EmailServiceInterface
 {

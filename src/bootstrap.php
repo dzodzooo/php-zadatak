@@ -1,16 +1,15 @@
 <?php
 declare(strict_types=1);
-use Service\EmailService;
+namespace App;
 require_once(__DIR__ . '/../vendor/autoload.php');
 
-use Database\UserRepository;
-use Database\Database;
-use Service\Session;
-use DataObject\UserData;
-use Exception\DatabaseException;
-use Exception\ValidationException;
-use Service\AuthService;
-
+use App\Database\UserRepository;
+use App\Database\Database;
+use App\Service\Session;
+use App\Service\AuthService;
+use App\Service\EmailService;
+use App\TestData;
+use Exception;
 
 try {
 
