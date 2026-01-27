@@ -9,7 +9,7 @@ use App\DataObject\UserData;
 use App\DataObject\UserLog;
 use App\Exception\DatabaseException;
 use App\Exception\ValidationException;
-use App\UserAction;
+use App\Enum\UserAction;
 use App\Validation\UserDataValidatorFactory;
 
 class AuthService

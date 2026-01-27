@@ -6,9 +6,11 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 use App\Controller\AuthController;
 use App\Router\Router;
 
-$router = new Router();
 AuthController::getInstance();
-$router->register('/', fn() => AuthController::getInstance()->get());
+$router = new Router();
+$router->get('/', fn() => AuthController::getInstance()->get());
+$router->post('/', fn() => AuthController::getInstance()->post());
+
 $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
 #var_dump($_SERVER['CONTENT_TYPE']);
