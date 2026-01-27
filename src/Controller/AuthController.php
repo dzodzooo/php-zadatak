@@ -36,7 +36,7 @@ class AuthController
         return static::$instance;
     }
 
-    public function post()
+    public function register()
     {
         $userData = new UserData($_REQUEST['email'], $_REQUEST['password'], $_REQUEST['confirmPassword']);
 
@@ -52,5 +52,8 @@ class AuthController
     public function get()
     {
         echo "Welcome";
+    }
+    public function delete()
+    {
     }
 }

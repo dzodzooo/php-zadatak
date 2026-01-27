@@ -9,8 +9,9 @@ use App\Router\Router;
 AuthController::getInstance();
 $router = new Router();
 $router->get('/', fn() => AuthController::getInstance()->get());
-$router->post('/', fn() => AuthController::getInstance()->post());
-
+$router->get('/lol/lol', fn() => AuthController::getInstance()->get());
+$router->post('/', fn() => AuthController::getInstance()->register());
+$router->delete('/', fn() => AuthController::getInstance()->delete());
 $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
 #var_dump($_SERVER['CONTENT_TYPE']);
