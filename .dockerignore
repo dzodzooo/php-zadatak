@@ -1,0 +1,6 @@
+.gitignore
+.yaml
+Dockerfile
+*.txt
+*.pdf
+vendor

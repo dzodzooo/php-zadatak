@@ -16,15 +16,13 @@ class AuthService
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
-        private readonly SessionInterface $session,
-        private readonly EmailServiceInterface $mailer
+        private readonly EmailServiceInterface $mailer,
+        private readonly SessionInterface $session
     ) {
-        $this->userRepository->connect(username: 'my_user', password: 'my_password');
+        $this->userRepository->connect();
     }
     public function register(UserData $userData)
     {
-        $this->session->start();
-
         $validator = UserDataValidatorFactory::create($userData, $this->session);
         if (!$validator->validate()) {
             $errors = $validator->getErrorMessages();
@@ -40,8 +38,6 @@ class AuthService
         if ($userLogId == 0)
             throw new DatabaseException("Couldn't insert user log into database.");
 
-        $this->session->regenerateId();
-        $this->session->set('userId', $userId);
 
         $this->mailer->sendWelcomeMessage($userData->email);
 

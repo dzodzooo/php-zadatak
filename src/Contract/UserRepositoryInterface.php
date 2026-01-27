@@ -7,7 +7,7 @@ use App\DataObject\UserLog;
 
 interface UserRepositoryInterface
 {
-    public function connect(string $username, string $password, string $hostname = "localhost");
+    public function connect();
     public function selectUser(string $email);
     public function insertUser(UserData $userData);
     public function logAction(UserLog $userLog);

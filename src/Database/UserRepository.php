@@ -14,9 +14,9 @@ class UserRepository implements UserRepositoryInterface
         private readonly DatabaseInterface $db,
     ) {
     }
-    public function connect(string $username, string $password, string $hostname = "localhost")
+    public function connect()
     {
-        $this->db->connect($username, $password, $hostname);
+        $this->db->connect();
         $this->queryBuilder = new QueryBuilder($this->db);
     }
     public function selectUser(string $email)

@@ -10,7 +10,7 @@ class UniqueEmailRule extends Rule
     public function validate(string $input): bool
     {
         $userRepository = new UserRepository(new Database());
-        $userRepository->connect(username: 'my_user', password: 'my_password');
+        $userRepository->connect();
         $result = $userRepository->selectUser($input);
 
         if (is_array($result)) {

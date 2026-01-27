@@ -4,16 +4,22 @@ namespace App\Database;
 
 use App\Contract\DatabaseInterface;
 use App\Exception\DatabaseException;
-use mysqli;
-use mysqli_stmt;
+use \mysqli;
+use \mysqli_stmt;
 
 class Database implements DatabaseInterface
 {
     private mysqli $mysqli;
     private mysqli_stmt $statement;
-    public function connect(string $username, string $password, string $hostname = "localhost", string $database = 'my_db', int $port = 3306)
+    public function connect()
     {
-        $this->mysqli = new mysqli($hostname, $username, $password, $database, $port);
+        $this->mysqli = new mysqli(
+            $_ENV['DB_HOST'],
+            $_ENV['DB_USERNAME'],
+            $_ENV['DB_PASSWORD'],
+            $_ENV['DB_NAME'],
+            (int) $_ENV['DB_PORT']
+        );
         if (!$this->mysqli or $this->mysqli->connect_errno) {
             throw new DatabaseException("Error connecting to the database.");
         }
