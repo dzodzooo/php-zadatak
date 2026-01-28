@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace App\Database\Query;
+namespace Zadatak\Database\Query;
 
-use App\Contract\DatabaseInterface;
+use Zadatak\Contract\DatabaseInterface;
 use mysqli_stmt;
 
 abstract class Query

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\Database;
+namespace Zadatak\Database;
 
-use App\Contract\DatabaseInterface;
-use App\Exception\DatabaseException;
+use Zadatak\Contract\DatabaseInterface;
+use Zadatak\Exception\DatabaseException;
 use \mysqli;
 use \mysqli_stmt;
 

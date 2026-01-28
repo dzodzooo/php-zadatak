@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\Contract;
+namespace Zadatak\Contract;
 
 interface EmailServiceInterface
 {

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace App\Validation;
+namespace Zadatak\Validation;
 
-use App\Exception\ValidationException;
-use App\Validation\Rule\Rule;
-use App\Validation\Rule\RuleFactory;
+use Zadatak\Exception\ValidationException;
+use Zadatak\Validation\Rule\Rule;
+use Zadatak\Validation\Rule\RuleFactory;
 
 class Validator
 {

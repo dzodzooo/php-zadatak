@@ -1,74 +1,53 @@
 <?php
 declare(strict_types=1);
-namespace App\Router;
+namespace Zadatak\Router;
 
-use App\Enum\HTTPMethod;
-use RuntimeException;
-
+use Zadatak\Enum\HTTPMethod;
+use Zadatak\Exception\RouteException;
 class Router
 {
-    private array $GET;
-    private array $POST;
-    private array $DELETE;
-    private array $UPDATE;
+    private array $routes;
 
     public function __construct()
     {
-        $this->GET = [];
-        $this->POST = [];
-        $this->DELETE = [];
-        $this->UPDATE = [];
+        $this->routes = array();
     }
 
-    private function register(string $route, string $method, callable $callback)
+    private function register(string $route, HTTPMethod $method, callable $callback)
     {
-        if (null === HTTPMethod::tryFrom($method))
-            throw new RuntimeException("Method must be GET/POST/UPDATE/DELETE");
+        if (!isset($this->routes[$route]))
+            $this->routes[$route] = new Route($route);
 
-        $this->$method[$route] = $callback;
+        $this->routes[$route]->setHandler($method, $callback);
     }
     public function post(string $route, $callback)
     {
-        $this->register($route, HTTPMethod::POST->value, $callback);
+        $this->register($route, HTTPMethod::POST, $callback);
     }
     public function get(string $route, $callback)
     {
-        $this->register($route, HTTPMethod::GET->value, $callback);
+        $this->register($route, HTTPMethod::GET, $callback);
     }
     public function update(string $route, $callback)
     {
-        $this->register($route, HTTPMethod::UPDATE->value, $callback);
+        $this->register($route, HTTPMethod::UPDATE, $callback);
     }
     public function delete(string $route, $callback)
     {
-        $this->register($route, HTTPMethod::DELETE->value, $callback);
+        $this->register($route, HTTPMethod::DELETE, $callback);
     }
-    public function resolve(string $uri, string $method)
+    public function resolve(string $url, string $method, mixed $request = null)
     {
-        $uri = explode("?", $uri);
-        $route = $uri[0];
-        assert($this->routeExists($route, $method));
+        $route = parse_url($url, PHP_URL_PATH);
+        $query = parse_url($url, PHP_URL_QUERY) ?? '';
 
-        $args = isset($uri[1]) ? $this->parseQueryString($uri[1]) : [];
+        if (!isset($this->routes[$route])) {
+            throw new RouteException("Route $route not registered.");
+        }
 
-        call_user_func_array($this->$method[$route], $args);
-    }
-    public function routeExists(string $route, string $method)
-    {
-        if (!isset($this->$method[$route])) {
-            throw new RuntimeException("Route not registered");
-        }
-        return true;
-    }
-    private function parseQueryString(string $query_string)
-    {
-        $args = [];
-        $params = explode("&", $query_string);
-        foreach ($params as $param) {
-            [$key, $value] = explode("=", $param);
-            $args[$key] = $value;
-        }
-        return $args;
+        parse_str($query, $params);
+
+        return $this->routes[$route]->$method;
     }
 
 }

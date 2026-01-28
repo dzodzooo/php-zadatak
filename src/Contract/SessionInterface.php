@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\Contract;
+namespace Zadatak\Contract;
 interface SessionInterface
 {
     public function start();
@@ -8,4 +8,5 @@ interface SessionInterface
     public function set(string $key, mixed $value);
     public function get(string $key);
     public function getId();
+    public function close();
 }

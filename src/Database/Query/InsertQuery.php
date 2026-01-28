@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\Database\Query;
-use Exception\DatabaseException;
+namespace Zadatak\Database\Query;
 class InsertQuery extends Query
 {
     use SetTrait;

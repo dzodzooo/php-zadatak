@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace App\Service;
+namespace Zadatak\Service;
 
-use App\Contract\SessionInterface;
+use Zadatak\Contract\SessionInterface;
 use DateTime;
 
 class Session implements SessionInterface
@@ -31,5 +31,10 @@ class Session implements SessionInterface
     public function getId()
     {
         return session_id();
+    }
+
+    public function close()
+    {
+        session_write_close();
     }
 }

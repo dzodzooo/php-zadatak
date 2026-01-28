@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\DataObject;
+namespace Zadatak\DataObject;
 class UserData
 {
     public function __construct(

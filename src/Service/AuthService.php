@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
-namespace App\Service;
+namespace Zadatak\Service;
 
-use App\Contract\EmailServiceInterface;
-use App\Contract\SessionInterface;
-use App\Contract\UserRepositoryInterface;
-use App\DataObject\UserData;
-use App\DataObject\UserLog;
-use App\Exception\DatabaseException;
-use App\Exception\ValidationException;
-use App\Enum\UserAction;
-use App\Validation\UserDataValidatorFactory;
+use Zadatak\Contract\EmailServiceInterface;
+use Zadatak\Contract\SessionInterface;
+use Zadatak\Contract\UserRepositoryInterface;
+use Zadatak\DataObject\UserData;
+use Zadatak\DataObject\UserLog;
+use Zadatak\Exception\DatabaseException;
+use Zadatak\Exception\ValidationException;
+use Zadatak\Enum\UserAction;
+use Zadatak\Validation\UserDataValidatorFactory;
 
 class AuthService
 {

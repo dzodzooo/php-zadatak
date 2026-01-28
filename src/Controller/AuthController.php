@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
-namespace App\Controller;
+namespace Zadatak\Controller;
 
-use App\Contract\SessionInterface;
-use App\Database\Database;
-use App\Database\UserRepository;
-use App\DataObject\UserData;
-use App\Service\AuthService;
-use App\Service\EmailService;
-use App\Service\Session;
+use Zadatak\Contract\SessionInterface;
+use Zadatak\Database\Database;
+use Zadatak\Database\UserRepository;
+use Zadatak\DataObject\UserData;
+use Zadatak\Service\AuthService;
+use Zadatak\Service\EmailService;
+use Zadatak\Service\Session;
 
 class AuthController
 {
@@ -40,11 +40,7 @@ class AuthController
     {
         $userData = new UserData($_REQUEST['email'], $_REQUEST['password'], $_REQUEST['confirmPassword']);
 
-        $this->session->start();
-
         $userId = $this->auth->register($userData);
-
-        $this->session->regenerateId();
 
         $this->session->set('userId', $userId);
     }

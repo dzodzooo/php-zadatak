@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\Service;
+namespace Zadatak\Service;
 
-use App\Contract\EmailServiceInterface;
-use App\Exception\EmailException;
+use Zadatak\Contract\EmailServiceInterface;
+use Zadatak\Exception\EmailException;
 
 class EmailService implements EmailServiceInterface
 {
@@ -21,7 +21,6 @@ class EmailService implements EmailServiceInterface
         $additional_headers = [
             'from' => 'adm@example.com',
         ];
-        "adm@kkk.com";
         $this->send($email, $subject, $message, $additional_headers);
     }
 }

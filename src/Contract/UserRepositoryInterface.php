@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\Contract;
+namespace Zadatak\Contract;
 
-use App\DataObject\UserData;
-use App\DataObject\UserLog;
+use Zadatak\DataObject\UserData;
+use Zadatak\DataObject\UserLog;
 
 interface UserRepositoryInterface
 {

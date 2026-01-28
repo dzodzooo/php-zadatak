@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace App\Validation\Rule;
+namespace Zadatak\Validation\Rule;
 
-use App\Exception\ValidationException;
+use Zadatak\Exception\ValidationException;
 
 class MinRule extends Rule
 {

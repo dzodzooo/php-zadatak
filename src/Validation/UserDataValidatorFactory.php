@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\Validation;
+namespace Zadatak\Validation;
 
-use App\DataObject\UserData;
-use App\Service\Session;
+use Zadatak\DataObject\UserData;
+use Zadatak\Service\Session;
 
 class UserDataValidatorFactory
 {

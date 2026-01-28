@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace App\DataObject;
+namespace Zadatak\DataObject;
 
-use App\Enum\UserAction;
+use Zadatak\Enum\UserAction;
 
 class UserLog
 {

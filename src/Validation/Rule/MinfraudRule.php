@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace App\Validation\Rule;
+namespace Zadatak\Validation\Rule;
 
-use App\Exception\ValidationException;
-use App\Service\MinFraudMock;
-use App\Service\Session;
+use Zadatak\Exception\ValidationException;
+use Zadatak\Service\MinFraudMock;
+use Zadatak\Service\Session;
 
 class MinfraudRule extends Rule
 {

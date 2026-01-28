@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\Validation\Rule;
+namespace Zadatak\Validation\Rule;
 
-use App\Database\Database;
-use App\Database\UserRepository;
+use Zadatak\Database\Database;
+use Zadatak\Database\UserRepository;
 
 class UniqueEmailRule extends Rule
 {

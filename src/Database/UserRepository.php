@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace App\Database;
+namespace Zadatak\Database;
 
-use App\Contract\DatabaseInterface;
-use App\Contract\UserRepositoryInterface;
-use App\DataObject\UserData;
-use App\DataObject\UserLog;
+use Zadatak\Contract\DatabaseInterface;
+use Zadatak\Contract\UserRepositoryInterface;
+use Zadatak\DataObject\UserData;
+use Zadatak\DataObject\UserLog;
 
 class UserRepository implements UserRepositoryInterface
 {

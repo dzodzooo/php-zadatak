@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace App\Database;
+namespace Zadatak\Database;
 
-use App\Contract\DatabaseInterface;
-use App\Database\Query\InsertQuery;
-use App\Database\Query\UpdateQuery;
-use App\Database\Query\SelectQuery;
+use Zadatak\Contract\DatabaseInterface;
+use Zadatak\Database\Query\InsertQuery;
+use Zadatak\Database\Query\UpdateQuery;
+use Zadatak\Database\Query\SelectQuery;
 
 class QueryBuilder
 {
