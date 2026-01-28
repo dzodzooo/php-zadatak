@@ -8,7 +8,7 @@ abstract class Rule
     {
         $this->errorMessage = "";
     }
-    abstract public function validate(string $input): bool;
+    abstract public function validate(array $data, string $key): bool;
     public function getMessage(): string
     {
         return $this->errorMessage;

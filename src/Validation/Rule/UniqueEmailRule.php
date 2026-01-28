@@ -7,11 +7,11 @@ use Zadatak\Database\UserRepository;
 
 class UniqueEmailRule extends Rule
 {
-    public function validate(string $input): bool
+    public function validate(array $data, string $key): bool
     {
         $userRepository = new UserRepository(new Database());
         $userRepository->connect();
-        $result = $userRepository->selectUser($input);
+        $result = $userRepository->selectUser($data[$key]);
 
         if (is_array($result)) {
             $this->errorMessage = "Email taken.";

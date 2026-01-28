@@ -42,6 +42,8 @@ class AuthController
 
         $userId = $this->auth->register($userData);
 
+        $this->session->regenerateId();
+
         $this->session->set('userId', $userId);
     }
 

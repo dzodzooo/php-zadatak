@@ -3,6 +3,8 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
+use Zadatak\DataObject\Request;
+use Zadatak\DataObject\Response;
 
 class RequestHandler extends Handler implements HandlerInterface
 {
@@ -11,8 +13,8 @@ class RequestHandler extends Handler implements HandlerInterface
     {
         $this->callback = $callback;
     }
-    public function handle($request)
+    public function handle(Request $request)
     {
-        return ($this->callback)($request);
+        ($this->callback)($request);
     }
 }

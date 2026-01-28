@@ -13,12 +13,18 @@ class MinfraudRule extends Rule
     public function __construct(array $args)
     {
         parent::__construct();
+
         if (!isset($args['session']))
             throw new ValidationException('Invalid arguments.');
+
         $this->session = $args['session'];
-        $this->minFraud = new MinFraudMock();
+
+        if (!isset($args['minFraud']))
+            throw new ValidationException('Invalid arguments.');
+
+        $this->minFraud = $args['minFraud'];
     }
-    public function validate(string $input): bool
+    public function validate(array $data, string $key): bool
     {
         $client_ip = $_SERVER['REMOTE_ADDR'];
         $userAgent = $_SERVER['HTTP_USER_AGENT'];

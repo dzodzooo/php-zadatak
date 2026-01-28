@@ -25,7 +25,7 @@ class Session implements SessionInterface
     }
     public function get(string $key)
     {
-        return $_SESSION[$key];
+        return $_SESSION[$key] ?? null;
     }
 
     public function getId()

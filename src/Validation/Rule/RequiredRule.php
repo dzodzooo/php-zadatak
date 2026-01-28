@@ -7,9 +7,9 @@ class RequiredRule extends Rule
     {
         parent::__construct();
     }
-    public function validate(string $input): bool
+    public function validate(array $data, string $key): bool
     {
-        if (isset($input) && strlen($input) > 0) {
+        if (isset($data[$key]) && strlen($data[$key]) > 0) {
             $this->errorMessage = "";
             return true;
         }

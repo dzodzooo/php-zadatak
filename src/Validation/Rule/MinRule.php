@@ -19,9 +19,9 @@ class MinRule extends Rule
 
         $this->min = $args['min'];
     }
-    public function validate(string $input): bool
+    public function validate(array $data, string $key): bool
     {
-        if (mb_strlen($input) > $this->min) {
+        if (mb_strlen($data[$key]) > $this->min) {
             $this->errorMessage = "";
             return true;
         }

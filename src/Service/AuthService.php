@@ -23,11 +23,6 @@ class AuthService
     }
     public function register(UserData $userData)
     {
-        $validator = UserDataValidatorFactory::create($userData, $this->session);
-        if (!$validator->validate()) {
-            $errors = $validator->getErrorMessages();
-            throw new ValidationException(array_pop($errors)[0]);
-        }
 
         $userId = $this->userRepository->insertUser($userData);
         if ($userId == 0)

@@ -7,9 +7,9 @@ class EmailRule extends Rule
     {
         parent::__construct();
     }
-    public function validate(string $input): bool
+    public function validate(array $data, string $key): bool
     {
-        $validated = filter_var($input, FILTER_VALIDATE_EMAIL);
+        $validated = filter_var($data[$key], FILTER_VALIDATE_EMAIL);
         if (false === $validated || null === $validated) {
             $this->errorMessage = "Invalid email.";
             return false;
