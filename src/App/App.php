@@ -7,33 +7,34 @@ use Zadatak\Router\Router;
 
 class App
 {
-    private ?HandlerInterface $head = null;
-    private ?HandlerInterface $tail = null;
+    private array $handlers;
     public function __construct(private readonly Router $router)
     {
+        $this->handlers = [];
     }
 
     public function addHandler(HandlerInterface $handler)
     {
-        if ($this->tail === null) {
-            $this->tail = $handler;
-        }
-
-        if ($this->head !== null)
-            $handler->setHandler($this->head);
-
-        $this->head = $handler;
+        array_push($this->handlers, $handler);
     }
 
     public function run()
     {
         $requestHandler = $this->router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-        if ($this->tail !== null) {
-            $this->tail->setHandler($requestHandler);
-            $this->head->handle([]);
-        } else {
-            $requestHandler->handle([]);
+        $handler = $this->chainHandlers($requestHandler);
+        $handler->handle([]);
+    }
+    private function chainHandlers(HandlerInterface $requestHandler): HandlerInterface
+    {
+        if (count($this->handlers) == 0)
+            return $requestHandler;
+
+        $count = count($this->handlers);
+        for ($i = 0; $i < $count - 1; $i++) {
+            $this->handlers[$i]->setHandler($this->handlers[$i + 1]);
         }
+        $this->handlers[$count - 1] = $requestHandler;
+        return $this->handlers[0];
     }
 
 }
