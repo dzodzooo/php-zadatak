@@ -3,9 +3,7 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\DataObject\Request;
-use Zadatak\DataObject\Response;
-
+use Zadatak\Handler\Request\Request;
 abstract class Handler implements HandlerInterface
 {
     protected HandlerInterface $handler;

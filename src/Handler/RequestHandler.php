@@ -3,8 +3,7 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\DataObject\Request;
-use Zadatak\DataObject\Response;
+use Zadatak\Handler\Request\Request;
 
 class RequestHandler extends Handler implements HandlerInterface
 {

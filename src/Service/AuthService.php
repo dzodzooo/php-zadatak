@@ -8,9 +8,7 @@ use Zadatak\Contract\UserRepositoryInterface;
 use Zadatak\DataObject\UserData;
 use Zadatak\DataObject\UserLog;
 use Zadatak\Exception\DatabaseException;
-use Zadatak\Exception\ValidationException;
 use Zadatak\Enum\UserAction;
-use Zadatak\Validation\UserDataValidatorFactory;
 
 class AuthService
 {
@@ -21,7 +19,7 @@ class AuthService
     ) {
         $this->userRepository->connect();
     }
-    public function register(UserData $userData)
+    public function register(UserData $userData): mixed
     {
 
         $userId = $this->userRepository->insertUser($userData);

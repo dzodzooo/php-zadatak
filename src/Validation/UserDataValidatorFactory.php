@@ -23,6 +23,7 @@ class UserDataValidatorFactory
         $validator->addRule('confirmPassword', 'required');
         $validator->addRule('confirmPassword', 'min', ['min' => 6]);
         $validator->addRule('confirmPassword', 'same', ['same' => 'password']);
+
         return $validator;
     }
 

@@ -23,18 +23,22 @@ class Router
     public function post(string $route, $callback)
     {
         $this->register($route, HTTPMethod::POST, $callback);
+        return $this;
     }
     public function get(string $route, $callback)
     {
         $this->register($route, HTTPMethod::GET, $callback);
+        return $this;
     }
     public function update(string $route, $callback)
     {
         $this->register($route, HTTPMethod::UPDATE, $callback);
+        return $this;
     }
     public function delete(string $route, $callback)
     {
         $this->register($route, HTTPMethod::DELETE, $callback);
+        return $this;
     }
     public function resolve(string $url, string $method, mixed $request = null)
     {

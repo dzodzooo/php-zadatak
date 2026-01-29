@@ -4,6 +4,7 @@ namespace Zadatak\App;
 
 use Zadatak\Contract\HandlerInterface;
 use Zadatak\DataObject\Request;
+use Zadatak\Handler\Request\RequestFactory;
 use Zadatak\Handler\RequestHandler;
 use Zadatak\Router\Router;
 
@@ -18,13 +19,14 @@ class App
     public function addHandler(HandlerInterface $handler)
     {
         array_push($this->handlers, $handler);
+        return $this;
     }
 
     public function run()
     {
         $requestHandler = $this->router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
         $handler = $this->getHandler($requestHandler);
-        $handler->handle(new Request());
+        $handler->handle(RequestFactory::get());
     }
     private function getHandler(HandlerInterface $requestHandler): HandlerInterface
     {

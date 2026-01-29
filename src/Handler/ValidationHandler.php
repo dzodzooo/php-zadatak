@@ -4,24 +4,19 @@ namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
 use Zadatak\Contract\SessionInterface;
-use Zadatak\DataObject\Request;
-use Zadatak\DataObject\Response;
+use Zadatak\Handler\Request\Request;
 use Zadatak\Exception\ValidationException;
 use Zadatak\Validation\Validator;
 
 class ValidationHandler extends Handler implements HandlerInterface
 {
     public function __construct(
-        private readonly Validator $validator,
-        private readonly SessionInterface $session
+        private readonly Validator $validator
     ) {
     }
     public function handle(Request $request)
     {
-        if (!$this->session->get('userId'))
-            return $this->handler->handle($request);
-
-        $this->validator->validateOn($request->get('userData'));
+        $this->validator->validateOn($request->getBody());
 
         if (!$this->validator->validate()) {
             $errors = $this->validator->getErrorMessages();

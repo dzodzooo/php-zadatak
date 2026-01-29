@@ -19,6 +19,6 @@ class MinFraudMock
 
     public function score()
     {
-        return new ScoreMock(rand(-1, 1));
+        return new ScoreMock(-1);
     }
 }

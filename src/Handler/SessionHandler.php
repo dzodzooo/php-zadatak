@@ -4,8 +4,7 @@ namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
 use Zadatak\Contract\SessionInterface;
-use Zadatak\DataObject\Request;
-use Zadatak\DataObject\Response;
+use Zadatak\Handler\Request\Request;
 
 class SessionHandler extends Handler implements HandlerInterface
 {

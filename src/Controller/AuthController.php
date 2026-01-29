@@ -5,6 +5,7 @@ namespace Zadatak\Controller;
 use Zadatak\Contract\SessionInterface;
 use Zadatak\Database\Database;
 use Zadatak\Database\UserRepository;
+use Zadatak\Handler\Request\Request;
 use Zadatak\DataObject\UserData;
 use Zadatak\Service\AuthService;
 use Zadatak\Service\EmailService;
@@ -36,9 +37,11 @@ class AuthController
         return static::$instance;
     }
 
-    public function register()
+    public function register(Request $request)
     {
-        $userData = new UserData($_REQUEST['email'], $_REQUEST['password'], $_REQUEST['confirmPassword']);
+        $requestBody = $request->getBody();
+
+        $userData = new UserData($requestBody['email'], $requestBody['password'], $requestBody['confirmPassword']);
 
         $userId = $this->auth->register($userData);
 
