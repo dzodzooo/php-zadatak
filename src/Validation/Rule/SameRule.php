@@ -24,7 +24,7 @@ class SameRule extends Rule
             $this->errorMessage = "";
             return true;
         }
-        $this->errorMessage = "Input must be same as {$data[$this->sameAs]}.";
+        $this->errorMessage = "{$key} must be same as {$this->sameAs}.";
         return false;
     }
 }
