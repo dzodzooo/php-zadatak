@@ -40,7 +40,7 @@ class Router
         $this->register($route, HTTPMethod::DELETE, $callback);
         return $this;
     }
-    public function resolve(string $url, string $method, mixed $request = null)
+    public function resolve(string $url, string $method)
     {
         $route = parse_url($url, PHP_URL_PATH);
         $query = parse_url($url, PHP_URL_QUERY) ?? '';

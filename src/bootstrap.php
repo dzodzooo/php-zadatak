@@ -22,8 +22,8 @@ $router->get('/', [AuthController::getInstance(), 'get'])
 
 $app = new App($router);
 
-$app->addHandler(new SessionHandler($session))
-    ->addHandler(new ExceptionHandler())
+$app->addHandler(new ExceptionHandler())
+    ->addHandler(new SessionHandler($session))
     ->addHandler(new ValidationHandler(UserDataValidatorFactory::create($session)));
 
 $app->run();

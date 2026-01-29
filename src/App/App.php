@@ -4,8 +4,10 @@ namespace Zadatak\App;
 
 use Zadatak\Contract\HandlerInterface;
 use Zadatak\DataObject\Request;
+use Zadatak\Exception\RouteException;
 use Zadatak\Handler\Request\RequestFactory;
 use Zadatak\Handler\RequestHandler;
+use Zadatak\Handler\RouterHandler;
 use Zadatak\Router\Router;
 
 class App
@@ -24,24 +26,25 @@ class App
 
     public function run()
     {
+        try {
+            $this->tryRun();
+        } catch (RouteException $exception) {
+            echo $exception->getMessage();
+        }
+    }
+    private function tryRun()
+    {
         $requestHandler = $this->router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-        $handler = $this->getHandler($requestHandler);
+        $this->addHandler($requestHandler);
+        $handler = $this->chainHandlers();
         $handler->handle(RequestFactory::get());
     }
-    private function getHandler(HandlerInterface $requestHandler): HandlerInterface
-    {
-        if (count($this->handlers) == 0)
-            return $requestHandler;
-        else
-            return $this->chainHandlers($requestHandler);
-    }
-    private function chainHandlers(HandlerInterface $requestHandler): HandlerInterface
+    private function chainHandlers(): HandlerInterface
     {
         $count = count($this->handlers);
         for ($i = 0; $i < $count - 1; $i++) {
             $this->handlers[$i]->setHandler($this->handlers[$i + 1]);
         }
-        $this->handlers[$count - 1]->setHandler($requestHandler);
         return $this->handlers[0];
     }
 
