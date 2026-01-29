@@ -13,7 +13,7 @@ class RequiredRule extends Rule
             $this->errorMessage = "";
             return true;
         }
-        $this->errorMessage = 'Input must not be empty.';
+        $this->errorMessage = '$key must not be empty.';
         return false;
     }
 }

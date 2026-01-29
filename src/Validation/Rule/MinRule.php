@@ -25,7 +25,7 @@ class MinRule extends Rule
             $this->errorMessage = "";
             return true;
         }
-        $this->errorMessage = "Input must be of minimum length {$this->min}.";
+        $this->errorMessage = "$key must be of minimum length {$this->min}.";
         return false;
     }
 }
