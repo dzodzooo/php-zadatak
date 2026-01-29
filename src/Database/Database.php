@@ -6,84 +6,46 @@ use Zadatak\Contract\DatabaseInterface;
 use Zadatak\Exception\DatabaseException;
 use \mysqli;
 use \mysqli_stmt;
+use Zadatak\Contract\DatabaseStatementInterface;
 
 class Database implements DatabaseInterface
 {
     private mysqli $mysqli;
-    private mysqli_stmt $statement;
-    public function connect()
+    public function connect(?string $hostname = null, ?string $username = null, ?string $password = null, ?string $database = null, ?int $port = null)
     {
         $this->mysqli = new mysqli(
-            $_ENV['DB_HOST'],
-            $_ENV['DB_USERNAME'],
-            $_ENV['DB_PASSWORD'],
-            $_ENV['DB_NAME'],
-            (int) $_ENV['DB_PORT']
+            $hostname ?? $_ENV['DB_HOST'],
+            $username ?? $_ENV['DB_USERNAME'],
+            $password ?? $_ENV['DB_PASSWORD'],
+            $database ?? $_ENV['DB_NAME'],
+            $port ?? (int) $_ENV['DB_PORT']
         );
         if (!$this->mysqli or $this->mysqli->connect_errno) {
             throw new DatabaseException("Error connecting to the database.");
         }
     }
-    public function prepareStatement(string $query)
+    public function prepareStatement(string $query): DatabaseStatementInterface
     {
         $result = $this->mysqli->prepare($query);
         if ($result === false)
             throw new DatabaseException("Couldn't prepare statement");
-        $this->statement = $result;
+        return new DatabaseStatement($this, $result);
     }
-    public function escape(string $input)
+    public function escape(string $input): string
     {
         return $this->mysqli->real_escape_string($input);
-    }
-    public function executeStatement(?array $args)
-    {
-        return $this->statement->execute($args);
     }
     public function getInsertId()
     {
         return $this->mysqli->insert_id;
     }
-    public function bindParams(array $args)
+    public function escapeArguments(array $args): array
     {
-        if (!$this->statement) {
-            throw new DatabaseException("Can't bind params to unprepared statement.");
-        }
-        $types = "";
         $escaped = [];
         foreach ($args as $arg) {
-            $type = $this->getType($arg);
-            $types = "$types$type";
-
-            if ($type === "s")
-                array_push($escaped, $this->escape($arg));
-            else
-                array_push($escaped, $arg);
+            array_push($escaped, is_string($arg) ? $this->escape($arg) : $arg);
         }
-        $this->statement->bind_param($types, ...$escaped);
+        return $escaped;
     }
 
-    private function getType(mixed $arg)
-    {
-        switch (gettype($arg)) {
-            case "integer":
-                return "i";
-            case "float":
-                return "d";
-            case "string":
-                return "s";
-            default:
-                return "b";
-        }
-    }
-    public function getResult()
-    {
-        $result = $this->statement->get_result();
-
-        if ($result === false)
-            return false;
-
-        $row = $result->fetch_assoc();
-
-        return $row;
-    }
 }

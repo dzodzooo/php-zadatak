@@ -31,6 +31,6 @@ class SelectQuery extends Query
     {
         parent::execute($args);
 
-        return $this->db->getResult();
+        return $this->statement->getResult();
     }
 }

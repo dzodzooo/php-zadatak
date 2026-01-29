@@ -5,10 +5,8 @@ namespace Zadatak\Contract;
 interface DatabaseInterface
 {
     public function connect();
-    public function prepareStatement(string $query);
-    public function escape(string $input);
-    public function executeStatement(?array $args);
+    public function escape(string $input): string;
+    public function escapeArguments(array $args): array;
     public function getInsertId();
-    public function bindParams(array $args);
-    public function getResult();
+    public function prepareStatement(string $query): DatabaseStatementInterface;
 }
