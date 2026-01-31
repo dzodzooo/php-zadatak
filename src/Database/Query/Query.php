@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace Zadatak\Database\Query;
 
 use Zadatak\Contract\DatabaseInterface;
-use mysqli_stmt;
 use Zadatak\Contract\DatabaseStatementInterface;
 
 abstract class Query

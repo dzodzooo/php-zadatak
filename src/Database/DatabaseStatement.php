@@ -52,7 +52,7 @@ class DatabaseStatement implements DatabaseStatementInterface
             throw new DatabaseException("Can't bind params to unprepared statement.");
         }
         $types = $this->getTypes($args);
-        $escaped = $this->db->escapeArguments($args);
+        $escaped = array_map(fn($arg) => $this->db->escape($arg), $args);
         $this->statement->bind_param($types, ...$escaped);
     }
 }

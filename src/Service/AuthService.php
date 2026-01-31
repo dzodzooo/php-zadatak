@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace Zadatak\Service;
 
-use Zadatak\Contract\EmailServiceInterface;
-use Zadatak\Contract\SessionInterface;
 use Zadatak\Contract\UserMailerInterface;
 use Zadatak\Contract\UserRepositoryInterface;
 use Zadatak\DataObject\UserData;

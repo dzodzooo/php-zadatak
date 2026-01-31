@@ -11,6 +11,5 @@ abstract class Handler implements HandlerInterface
     {
         $this->handler = $handler;
     }
-
     public abstract function handle(Request $request);
 }

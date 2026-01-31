@@ -13,32 +13,28 @@ class Router
         $this->routes = array();
     }
 
-    private function register(string $route, HTTPMethod $method, callable $callback)
+    private function register(string $route, HTTPMethod $method, callable $callback): Route
     {
         if (!isset($this->routes[$route]))
             $this->routes[$route] = new Route($route);
 
-        $this->routes[$route]->setHandler($method, $callback);
+        return $this->routes[$route]->setHandler($method, $callback);
     }
-    public function post(string $route, $callback)
+    public function post(string $route, $callback): Route
     {
-        $this->register($route, HTTPMethod::POST, $callback);
-        return $this;
+        return $this->register($route, HTTPMethod::POST, $callback);
     }
-    public function get(string $route, $callback)
+    public function get(string $route, $callback): Route
     {
-        $this->register($route, HTTPMethod::GET, $callback);
-        return $this;
+        return $this->register($route, HTTPMethod::GET, $callback);
     }
-    public function update(string $route, $callback)
+    public function update(string $route, $callback): Route
     {
-        $this->register($route, HTTPMethod::UPDATE, $callback);
-        return $this;
+        return $this->register($route, HTTPMethod::UPDATE, $callback);
     }
-    public function delete(string $route, $callback)
+    public function delete(string $route, $callback): Route
     {
-        $this->register($route, HTTPMethod::DELETE, $callback);
-        return $this;
+        return $this->register($route, HTTPMethod::DELETE, $callback);
     }
     public function resolve(string $url, string $method)
     {

@@ -5,9 +5,9 @@ namespace Zadatak\Controller;
 use Zadatak\Contract\SessionInterface;
 use Zadatak\Database\Database;
 use Zadatak\Database\UserRepository;
-use Zadatak\Handler\Request\Request;
 use Zadatak\DataObject\UserData;
 use Zadatak\Email\UserMailerFactory;
+use Zadatak\Handler\Request\Request;
 use Zadatak\Service\AuthService;
 use Zadatak\Service\Session;
 
@@ -15,7 +15,7 @@ class AuthController
 {
     private static ?AuthController $instance = null;
 
-    public function __construct(
+    private function __construct(
         private readonly AuthService $auth,
         private readonly SessionInterface $session
     ) {

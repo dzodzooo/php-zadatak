@@ -8,19 +8,15 @@ trait WhereTrait
 {
     public function where(?string $column = null)
     {
-        if (
-            !(str_contains($this->query, 'FROM') ||
-                str_contains($this->query, 'UPDATE'))
-        )
-            throw new DatabaseException("SELECT query must contain FROM keyword. UPDATE query must contain SET keyword");
+        if (!str_contains($this->query, 'FROM') && !str_contains($this->query, 'UPDATE'))
+            throw new DatabaseException("Invalid SELECT/UPDATE query");
 
-        if ($column === null) {
-            $this->query = "{$this->query} WHERE";
-            return $this;
+        $this->query = "{$this->query} WHERE";
+
+        if ($column !== null) {
+            $this->query = "{$this->query} {$this->db->escape($column)}=?";
         }
 
-        $column = $this->db->escape($column);
-        $this->query = "{$this->query} WHERE {$column}=?";
         return $this;
     }
     public function and(string $column)

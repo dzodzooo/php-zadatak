@@ -31,6 +31,7 @@ class Request
     public function withBody(array $body)
     {
         $this->body = $body;
+        return $this;
     }
     public function getBody()
     {

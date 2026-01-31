@@ -5,7 +5,6 @@ namespace Zadatak\Database;
 use Zadatak\Contract\DatabaseInterface;
 use Zadatak\Exception\DatabaseException;
 use \mysqli;
-use \mysqli_stmt;
 use Zadatak\Contract\DatabaseStatementInterface;
 
 class Database implements DatabaseInterface
@@ -27,25 +26,19 @@ class Database implements DatabaseInterface
     public function prepareStatement(string $query): DatabaseStatementInterface
     {
         $result = $this->mysqli->prepare($query);
+
         if ($result === false)
             throw new DatabaseException("Couldn't prepare statement");
+
         return new DatabaseStatement($this, $result);
     }
-    public function escape(string $input): string
+    public function escape(mixed $input): mixed
     {
-        return $this->mysqli->real_escape_string($input);
+        return is_string($input) ? $this->mysqli->real_escape_string($input) : $input;
     }
     public function getInsertId()
     {
         return $this->mysqli->insert_id;
-    }
-    public function escapeArguments(array $args): array
-    {
-        $escaped = [];
-        foreach ($args as $arg) {
-            array_push($escaped, is_string($arg) ? $this->escape($arg) : $arg);
-        }
-        return $escaped;
     }
 
 }

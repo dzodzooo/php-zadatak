@@ -3,11 +3,8 @@ declare(strict_types=1);
 namespace Zadatak\App;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\DataObject\Request;
 use Zadatak\Exception\RouteException;
 use Zadatak\Handler\Request\RequestFactory;
-use Zadatak\Handler\RequestHandler;
-use Zadatak\Handler\RouterHandler;
 use Zadatak\Router\Router;
 
 class App
@@ -36,8 +33,8 @@ class App
     {
         $requestHandler = $this->router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
         $this->addHandler($requestHandler);
-        $handler = $this->chainHandlers();
-        $handler->handle(RequestFactory::get());
+        $head = $this->chainHandlers();
+        $head->handle(RequestFactory::get());
     }
     private function chainHandlers(): HandlerInterface
     {
