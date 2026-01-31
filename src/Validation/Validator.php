@@ -10,11 +10,11 @@ use Zadatak\Validation\Rule\RuleFactory;
 class Validator
 {
     private array $subject;
-    private array $rules;
+    private array $fields;
     private array $errorMessages;
     public function __construct()
     {
-        $this->rules = [];
+        $this->fields = [];
         $this->errorMessages = [];
     }
 
@@ -23,42 +23,56 @@ class Validator
         $this->subject = $subject;
     }
 
-    public function addRule(string $key, string $rule, ?array $args = null)
+    public function addRule(string $field, string $rule, ?array $args = null)
     {
-        //$args = $args !== null ? array_merge(['subject' => $this->subject], $args) : $args;
         $rule = RuleFactory::create($rule, $args);
 
-        if (!isset($this->rules[$key]))
-            $this->rules[$key] = [];
+        if (!isset($this->fields[$field]))
+            $this->fields[$field] = [];
 
-        array_push($this->rules[$key], $rule);
+        array_push($this->fields[$field], $rule);
     }
 
     public function validate(): bool
     {
-        if (!isset($this->subject))
-            throw new ValidationException("Subject of validation not set.");
+        $this->assertCanValidate();
 
-        $validated = true;
-        foreach ($this->rules as $key => $rules) {
-            if (!isset($this->subject[$key])) {
-                throw new ValidationException("Key {$key} does not exist.");
+        $valid = true;
+        foreach ($this->fields as $field => $rules) {
+            if (!$this->validateField($rules, $field)) {
+                $valid = false;
             }
-            foreach ($rules as $rule) {
-                if (!$rule->validate($this->subject, $key)) {
-                    $validated = false;
-                    $this->addErrorMessage($key, $rule);
-                }
+        }
+        return $valid;
+    }
+    private function validateField(array $rules, string $field): bool
+    {
+        $validated = true;
+        foreach ($rules as $rule) {
+            if (!$rule->validate($this->subject, $field)) {
+                $validated = false;
+                $this->addErrorMessage($field, $rule);
             }
         }
         return $validated;
     }
-    private function addErrorMessage(string $key, Rule $rule)
+    private function assertCanValidate()
     {
-        if (isset($this->errorMessages[$key]))
-            array_push($this->errorMessages[$key], $rule->getMessage());
-        else
-            $this->errorMessages[$key] = [$rule->getMessage()];
+        if (!isset($this->subject))
+            throw new ValidationException("Subject of validation not set.");
+
+        foreach ($this->fields as $field => $rules) {
+            if (!isset($this->subject[$field])) {
+                throw new ValidationException("Key {$field} does not exist.");
+            }
+        }
+    }
+    private function addErrorMessage(string $field, Rule $rule)
+    {
+        if (!isset($this->errorMessages[$field]))
+            $this->errorMessages[$field] = [];
+
+        array_push($this->errorMessages[$field], $rule->getMessage());
     }
 
     public function getErrorMessages()
