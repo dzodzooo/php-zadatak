@@ -7,8 +7,8 @@ use Zadatak\Database\Database;
 use Zadatak\Database\UserRepository;
 use Zadatak\Handler\Request\Request;
 use Zadatak\DataObject\UserData;
+use Zadatak\Email\UserMailerFactory;
 use Zadatak\Service\AuthService;
-use Zadatak\Service\EmailService;
 use Zadatak\Service\Session;
 
 class AuthController
@@ -23,14 +23,12 @@ class AuthController
     public static function getInstance()
     {
         if (static::$instance === null) {
-            $session = new Session();
             static::$instance = new AuthController(
                 new AuthService(
                     new UserRepository(new Database()),
-                    new EmailService(),
-                    $session
+                    UserMailerFactory::create()
                 ),
-                $session,
+                new Session(),
             );
         }
 
