@@ -3,7 +3,9 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\Handler\Request\Request;
+use Zadatak\Contract\RequestInterface;
+use Zadatak\Contract\ResponseInterface;
+use Zadatak\Handler\Request\Response;
 
 class RequestHandler extends Handler implements HandlerInterface
 {
@@ -12,8 +14,8 @@ class RequestHandler extends Handler implements HandlerInterface
     {
         $this->callback = $callback;
     }
-    public function handle(Request $request)
+    public function handle(RequestInterface $request): ResponseInterface
     {
-        ($this->callback)($request);
+        return ($this->callback)($request);
     }
 }

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Zadatak\Validation\Rule;
 
+use Zadatak\Contract\RequestInterface;
 use Zadatak\Exception\ValidationException;
 use Zadatak\Service\MinFraudMock;
 use Zadatak\Service\Session;
@@ -10,30 +11,25 @@ class MinfraudRule extends Rule
 {
     private Session $session;
     private MinFraudMock $minFraud;
+    private RequestInterface $request;
     public function __construct(array $args)
     {
         parent::__construct();
 
-        if (!isset($args['session']))
+        if (count(array_diff_key(array_flip(['session', 'minFraud', 'request']), $args)) !== 0)
             throw new ValidationException('Invalid arguments.');
 
         $this->session = $args['session'];
-
-        if (!isset($args['minFraud']))
-            throw new ValidationException('Invalid arguments.');
-
         $this->minFraud = $args['minFraud'];
+        $this->request = $args['request'];
     }
     public function validate(array $data, string $key): bool
     {
-        $client_ip = $_SERVER['REMOTE_ADDR'];
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-
         $this->minFraud->withDevice(
-            $client_ip,
+            $this->request->getServerParams()['REMOTE_ADDR'],
             $this->session->get('start_time'),
             $this->session->getId(),
-            $userAgent,
+            $this->request->getServerParams()['HTTP_USER_AGENT'],
             'en-US,en;q=0.8'
         );
 

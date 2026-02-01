@@ -9,13 +9,14 @@ use Zadatak\Validation\Rule\RuleFactory;
 
 class Validator
 {
-    private array $subject;
+    private ?array $subject;
     private array $fields;
     private array $errorMessages;
     public function __construct()
     {
         $this->fields = [];
         $this->errorMessages = [];
+        $this->subject = null;
     }
 
     public function validateOn(array $subject)

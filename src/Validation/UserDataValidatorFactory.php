@@ -1,21 +1,26 @@
 <?php
+
 declare(strict_types=1);
 namespace Zadatak\Validation;
 
-use Zadatak\DataObject\UserData;
+use Zadatak\Contract\SessionInterface;
+use Zadatak\Handler\Request\Request;
 use Zadatak\Service\MinFraudMock;
-use Zadatak\Service\Session;
 
 class UserDataValidatorFactory
 {
-    public static function create(Session $session)
+    public static function create(SessionInterface $session)
     {
         $validator = new Validator();
 
         $validator->addRule('email', 'required');
         $validator->addRule('email', 'email');
         $validator->addRule('email', 'unique email');
-        $validator->addRule('email', 'minfraud', ['session' => $session, 'minFraud' => new MinFraudMock()]);
+        $validator->addRule('email', 'minfraud', [
+            'session' => $session,
+            'minFraud' => new MinFraudMock(),
+            'request' => new Request(),
+        ]);
 
         $validator->addRule('password', 'required');
         $validator->addRule('password', 'min', ['min' => 6]);

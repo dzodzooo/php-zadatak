@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\Contract\SessionInterface;
-use Zadatak\Handler\Request\Request;
+use Zadatak\Contract\RequestInterface;
+use Zadatak\Contract\ResponseInterface;
 use Zadatak\Exception\ValidationException;
 use Zadatak\Validation\Validator;
 
@@ -14,7 +14,7 @@ class ValidationHandler extends Handler implements HandlerInterface
         private readonly Validator $validator
     ) {
     }
-    public function handle(Request $request)
+    public function handle(RequestInterface $request): ResponseInterface
     {
         $this->validator->validateOn($request->getBody());
 

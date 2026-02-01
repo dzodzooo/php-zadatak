@@ -3,7 +3,9 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\Handler\Request\Request;
+use Zadatak\Contract\RequestInterface;
+use Zadatak\Contract\ResponseInterface;
+
 abstract class Handler implements HandlerInterface
 {
     protected HandlerInterface $handler;
@@ -11,5 +13,5 @@ abstract class Handler implements HandlerInterface
     {
         $this->handler = $handler;
     }
-    public abstract function handle(Request $request);
+    public abstract function handle(RequestInterface $request): ResponseInterface;
 }

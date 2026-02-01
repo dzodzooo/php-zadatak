@@ -3,18 +3,22 @@ declare(strict_types=1);
 namespace Zadatak\Handler;
 
 use Zadatak\Contract\HandlerInterface;
-use Zadatak\Exception\RouteException;
+use Zadatak\Contract\RequestInterface;
+use Zadatak\Contract\ResponseInterface;
+use Zadatak\Enum\StatusCode;
 use Zadatak\Exception\ValidationException;
-use Zadatak\Handler\Request\Request;
+use Zadatak\Handler\Request\Response;
 
 class ExceptionHandler extends Handler implements HandlerInterface
 {
-    public function handle(Request $request)
+    public function handle(RequestInterface $request): ResponseInterface
     {
         try {
-            $this->handler->handle($request);
+            return $this->handler->handle($request);
         } catch (ValidationException $exception) {
-            echo $exception->getMessage();
+            return (new Response())
+                ->withStatusCode(StatusCode::BAD_REQUEST)
+                ->withBody($exception->getMessage());
         }
     }
 }

@@ -2,11 +2,11 @@
 declare(strict_types=1);
 namespace Zadatak\Contract;
 
-use Zadatak\Handler\Request\Request;
+use Zadatak\Contract\RequestInterface;
 
 interface HandlerInterface
 {
     public function setHandler(HandlerInterface $handler);
 
-    public function handle(Request $request);
+    public function handle(RequestInterface $request): ResponseInterface;
 }

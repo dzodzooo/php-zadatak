@@ -19,8 +19,10 @@ $session = new Session();
 
 $router->get('/', [AuthController::getInstance(), 'get']);
 $router->post('/', [AuthController::getInstance(), 'register'])
-    ->addHandler(HTTPMethod::POST, new ValidationHandler(UserDataValidatorFactory::create($session)));
-$router->delete('/', [AuthController::getInstance(), 'delete']);
+    ->addHandler(
+        HTTPMethod::POST,
+        new ValidationHandler(UserDataValidatorFactory::create($session))
+    );
 
 $app = new App($router);
 

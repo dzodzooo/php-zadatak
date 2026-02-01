@@ -7,7 +7,10 @@ use Zadatak\Database\Database;
 use Zadatak\Database\UserRepository;
 use Zadatak\DataObject\UserData;
 use Zadatak\Email\UserMailerFactory;
-use Zadatak\Handler\Request\Request;
+use Zadatak\Contract\RequestInterface;
+use Zadatak\Contract\ResponseInterface;
+use Zadatak\Enum\StatusCode;
+use Zadatak\Handler\Request\Response;
 use Zadatak\Service\AuthService;
 use Zadatak\Service\Session;
 
@@ -35,7 +38,7 @@ class AuthController
         return static::$instance;
     }
 
-    public function register(Request $request)
+    public function register(RequestInterface $request): ResponseInterface
     {
         $requestBody = $request->getBody();
 
@@ -46,11 +49,15 @@ class AuthController
         $this->session->regenerateId();
 
         $this->session->set('userId', $userId);
+
+        return (new Response())->withStatusCode(StatusCode::FOUND)->withHeader('Location', '/');
     }
 
-    public function get()
+    public function get(RequestInterface $request): ResponseInterface
     {
-        echo "Welcome";
+        return new Response()
+            ->withStatusCode(StatusCode::OK)
+            ->withBody("Welcome.");
     }
     public function delete()
     {

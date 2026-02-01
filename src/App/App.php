@@ -4,7 +4,7 @@ namespace Zadatak\App;
 
 use Zadatak\Contract\HandlerInterface;
 use Zadatak\Exception\RouteException;
-use Zadatak\Handler\Request\RequestFactory;
+use Zadatak\Handler\Request\Request;
 use Zadatak\Router\Router;
 
 class App
@@ -31,10 +31,16 @@ class App
     }
     private function tryRun()
     {
-        $requestHandler = $this->router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-        $this->addHandler($requestHandler);
-        $head = $this->chainHandlers();
-        $head->handle(RequestFactory::get());
+        $request = new Request();
+
+        $requestHandler = $this->router->resolve(
+            $request->getServerParams()['REQUEST_URI'],
+            $request->getServerParams()['REQUEST_METHOD']
+        );
+
+        $this->addHandler($requestHandler)
+            ->chainHandlers()
+            ->handle($request);
     }
     private function chainHandlers(): HandlerInterface
     {
